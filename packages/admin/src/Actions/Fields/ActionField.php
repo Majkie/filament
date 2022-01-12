@@ -27,7 +27,6 @@ class ActionField extends Component implements Htmlable
 
     protected function setUp()
     {
-
     }
 
     public function toHtml(): string
@@ -60,7 +59,7 @@ class ActionField extends Component implements Htmlable
     public function render()
     {
         return view($this->getView(), array_merge($this->data(), [
-            'component' => $this
+            'component' => $this,
         ]));
     }
 }

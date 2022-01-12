@@ -2,11 +2,9 @@
 
 namespace Filament;
 
-use Closure;
 use Filament\Events\ServingFilament;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasName;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;

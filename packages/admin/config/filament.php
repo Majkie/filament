@@ -1,12 +1,12 @@
 <?php
 
+use Filament\Actions;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
 use Filament\Pages;
 use Filament\Resources;
 use Filament\Widgets;
-use Filament\Actions;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -127,7 +127,7 @@ return [
         'namespace' => 'App\\Filament\\Actions',
         'path' => app_path('Filament/Actions'),
         'register' => [
-            Actions\ProfileAction::class
+            Actions\ProfileAction::class,
         ],
     ],
 
