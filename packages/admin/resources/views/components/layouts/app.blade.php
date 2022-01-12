@@ -53,6 +53,14 @@
                         </div>
 
                         @livewire('filament.core.global-search')
+
+                        <div class="flex items-center">
+                            @if($actions = \Filament\Facades\Filament::getActions())
+                                @foreach($actions as $action)
+                                    @livewire(\Livewire\Livewire::getAlias($action))
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </header>

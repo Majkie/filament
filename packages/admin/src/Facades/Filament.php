@@ -2,7 +2,6 @@
 
 namespace Filament\Facades;
 
-use Closure;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Facade;
@@ -22,6 +21,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string | null getUserAvatarUrl(Authenticatable $user)
  * @method static string getUserName(Authenticatable $user)
  * @method static array getWidgets()
+ * @method static array getActions()
  * @method static void registerNavigationGroups(array $groups)
  * @method static void registerNavigationItems(array $items)
  * @method static void registerPages(array $pages)
@@ -31,7 +31,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static void registerStyles(array $styles)
  * @method static void registerTheme(string $url)
  * @method static void registerWidgets(array $widgets)
- * @method static void serving(Closure $callback)
+ * @method static void registerActions(array $actions)
+ * @method static void serving(callable $widgets)
  *
  * @see \Filament\FilamentManager
  */

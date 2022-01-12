@@ -2,6 +2,8 @@
 
 namespace Filament;
 
+use Filament\Actions\Action;
+use Filament\Actions\ProfileAction;
 use Filament\Facades\Filament;
 use Filament\Http\Livewire\Auth\Login;
 use Filament\Http\Livewire\GlobalSearch;
@@ -74,6 +76,7 @@ class FilamentServiceProvider extends PackageServiceProvider
         $this->discoverPages();
         $this->discoverResources();
         $this->discoverWidgets();
+        $this->discoverActions();
     }
 
     public function packageBooted(): void
@@ -88,6 +91,7 @@ class FilamentServiceProvider extends PackageServiceProvider
         Livewire::component('filament.core.pages.dashboard', Dashboard::class);
         Livewire::component('filament.core.widgets.account-widget', AccountWidget::class);
         Livewire::component('filament.core.widgets.filament-info-widget', FilamentInfoWidget::class);
+        Livewire::component('filament.core.actions.profile-action', ProfileAction::class);
 
         $this->registerLivewireComponentDirectory(config('filament.livewire.path'), config('filament.livewire.namespace'), 'filament.');
     }
@@ -149,6 +153,26 @@ class FilamentServiceProvider extends PackageServiceProvider
                     ->replace(['/', '.php'], ['\\', '']);
             })
             ->filter(fn ($class): bool => is_subclass_of($class, Widget::class) && (! (new ReflectionClass($class))->isAbstract()))
+            ->toArray());
+    }
+
+    protected function discoverActions(): void
+    {
+        $filesystem = new Filesystem();
+
+        Filament::registerActions(config('filament.actions.register', []));
+
+        if (! $filesystem->exists(config('filament.actions.path'))) {
+            return;
+        }
+
+        Filament::registerActions(collect($filesystem->allFiles(config('filament.actions.path')))
+            ->map(function (SplFileInfo $file): string {
+                return (string) Str::of(config('filament.actions.namespace'))
+                    ->append('\\', $file->getRelativePathname())
+                    ->replace(['/', '.php'], ['\\', '']);
+            })
+            ->filter(fn ($class): bool => is_subclass_of($class, Action::class) && (! (new ReflectionClass($class))->isAbstract()))
             ->toArray());
     }
 

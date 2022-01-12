@@ -33,7 +33,9 @@ class FilamentManager
 
     protected array $widgets = [];
 
-    public function auth(): Guard
+    protected array $actions = [];
+
+    public function auth(): StatefulGuard
     {
         return auth()->guard(config('filament.auth.guard'));
     }
@@ -96,7 +98,12 @@ class FilamentManager
         $this->widgets = array_merge($this->widgets, $widgets);
     }
 
-    public function serving(Closure $callback): void
+    public function registerActions(array $actions): void
+    {
+        $this->actions = array_merge($this->actions, $actions);
+    }
+
+    public function serving(callable $callback): void
     {
         Event::listen(ServingFilament::class, $callback);
     }
@@ -219,6 +226,13 @@ class FilamentManager
     public function getWidgets(): array
     {
         return collect($this->widgets)
+            ->sortBy(fn (string $widget): int => $widget::getSort())
+            ->toArray();
+    }
+
+    public function getActions(): array
+    {
+        return collect($this->actions)
             ->sortBy(fn (string $widget): int => $widget::getSort())
             ->toArray();
     }

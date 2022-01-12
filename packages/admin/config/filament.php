@@ -6,6 +6,7 @@ use Filament\Http\Middleware\MirrorConfigToSubpackages;
 use Filament\Pages;
 use Filament\Resources;
 use Filament\Widgets;
+use Filament\Actions;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -119,6 +120,14 @@ return [
         'register' => [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
+        ],
+    ],
+
+    'actions' => [
+        'namespace' => 'App\\Filament\\Actions',
+        'path' => app_path('Filament/Actions'),
+        'register' => [
+            Actions\ProfileAction::class
         ],
     ],
 
